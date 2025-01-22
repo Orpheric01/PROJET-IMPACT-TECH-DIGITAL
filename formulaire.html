@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORCRIM CANADA - Formulaire</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f4f4f9;
+            color: #333;
+        }
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+        h1 {
+            text-align: center;
+            color: #007bff;
+        }
+        form {
+            margin-top: 20px;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            font-weight: bold;
+        }
+        input, select, textarea, button {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button {
+            background: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            padding: 15px;
+            font-size: 16px;
+            border-radius: 50px;
+            transition: background 0.3s ease;
+        }
+        button:hover {
+            background: #0056b3;
+        }
+        .signature-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .signature-canvas {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Formulaire d'inscription</h1>
+        <form id="advancedForm" action="merci.html">
+            <div class="form-group">
+                <label for="fullname">Nom et prénom :</label>
+                <input type="text" id="fullname" name="fullname" required>
+            </div>
+            <div class="form-group">
+                <label for="country">Pays :</label>
+                <input type="text" id="country" name="country" required>
+            </div>
+            <div class="form-group">
+                <label for="city">Ville :</label>
+                <input type="text" id="city" name="city" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email :</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Numéro de téléphone :</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div class="form-group">
+                <label for="identity">Pièce d'identité :</label>
+                <input type="file" id="identity" name="identity" accept=".jpg, .jpeg, .png, .pdf" required>
+            </div>
+            <div class="form-group">
+                <label for="marital_status">Situation matrimoniale :</label>
+                <select id="marital_status" name="marital_status">
+                    <option value="celibataire">Célibataire</option>
+                    <option value="en couple">En couple</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="children">Nombre d'enfants à charge :</label>
+                <input type="number" id="children" name="children" required>
+            </div>
+            <div class="form-group">
+                <label for="profession">Profession :</label>
+                <input type="text" id="profession" name="profession" required>
+            </div>
+            <div class="form-group">
+                <label for="education">Niveau d'étude :</label>
+                <select id="education" name="education">
+                    <option value="cep">CEP</option>
+                    <option value="bepc">BEPC</option>
+                    <option value="bac">BAC</option>
+                    <option value="licence">Licence</option>
+                    <option value="master">Master</option>
+                    <option value="doctorat">Doctorat</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="relocate">Êtes-vous prêt à bouger pour l'étranger ?</label>
+                <select id="relocate" name="relocate">
+                    <option value="yes">Yes</option>
+                    <option value="no">No</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="job">Poste souhaité :</label>
+                <input type="text" id="job" name="job" required>
+            </div>
+            <div class="form-group">
+                <label for="motivation">Lettre de motivation :</label>
+                <input type="file" id="motivation" name="motivation" accept=".doc, .docx, .pdf" required>
+            </div>
+            <div class="signature-container">
+                <label>Signature :</label>
+                <canvas id="signature" class="signature-canvas" width="500" height="200"></canvas>
+                <button type="button" onclick="clearSignature()">Effacer la signature</button>
+            </div>
+            <button type="submit">Soumettre</button>
+        </form>
+    </div>
+    <script>
+        // Gestion du canvas pour la signature
+        const canvas = document.getElementById('signature');
+        const ctx = canvas.getContext('2d');
+        let drawing = false;
+
+        canvas.addEventListener('mousedown', () => drawing = true);
+        canvas.addEventListener('mouseup', () => drawing = false);
+        canvas.addEventListener('mousemove', drawSignature);
+
+        function drawSignature(e) {
+            if (!drawing) return;
+            const rect = canvas.getBoundingClientRect();
+            ctx.lineWidth = 2;
+            ctx.lineCap = 'round';
+            ctx.strokeStyle = 'black';
+            ctx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+            ctx.stroke();
+            ctx.beginPath();
+            ctx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+        }
+
+        function clearSignature() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        }
+    </script>
+</body>
+</html>
