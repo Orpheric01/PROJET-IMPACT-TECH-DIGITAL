@@ -12,18 +12,50 @@
             padding: 0;
             background: #f4f4f9;
             color: #333;
+            position: relative;
         }
         .container {
             max-width: 800px;
-            margin: 20px auto;
+            margin: 40px auto;
             padding: 20px;
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             text-align: center;
+            position: relative;
         }
-        h1, h2 {
+        h1 {
             color: #007bff;
+            font-size: 32px;
+            margin: 0;
+            display: inline-block;
+        }
+        .title-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 100px; /* Ajuste l'espacement entre les logos et le titre */
+        }
+        .title-wrapper img {
+            width: 150px; /* Augmenté de 50px à 70px */
+            height: 150px;
+        }
+        h2 {
+            color: #007bff;
+        }
+        .subtitle {
+            font-size: 16px;
+            margin-top: -10px;
+            color: #555;
+        }
+        .subtitle span {
+            font-size: 24px;
+            font-weight: bold;
+            color: #007bff;
+            font-family: 'Roboto', sans-serif;
+            display: inline-block;
+            margin-right: 3px;
+            vertical-align: middle;
         }
         .video-container {
             margin: 20px 0;
@@ -69,15 +101,48 @@
 </head>
 <body>
     <div class="container">
-        <h1>ORCRIM CANADA</h1>
+        <div class="title-wrapper">
+            <!-- Logo gauche -->
+            <img src="logo.jpg" alt="Logo gauche">
+            
+            <!-- Titre principal -->
+            <h1>ORCRIM CANADA</h1>
+            
+            <!-- Logo droit -->
+            <img src="logo.jpg" alt="Logo droit">
+        </div>
+        <p class="subtitle">
+            <span>O</span>rganisation <span>R</span>éfugiés <span>C</span>anadienne 
+            pour le <span>R</span>ecrutement <span>I</span>mmigration et <span>M</span>igration
+        </p>
         <h2>Recrutement pour travailler au Canada</h2>
+        
+        
         <div class="video-container">
-            <video controls>
+            <video id="recruitmentVideo" controls>
                 <source src="ORCRIM_CANADA.mp4" type="video/mp4">
                 Votre navigateur ne supporte pas la vidéo.
             </video>
         </div>
-        <a href="formulaire.html" class="cta-button cta-animation">S'inscrire</a>
+        
+        <a href="formulaire.html" class="cta-button cta-animation" id="ctaButton" style="display: none;">Patientez ...</a>
     </div>
+
+    <script>
+        // Récupérer la vidéo et le bouton
+        const video = document.getElementById('recruitmentVideo');
+        const ctaButton = document.getElementById('ctaButton');
+
+        // Ajouter un événement pour détecter la fin de la vidéo
+        video.addEventListener('ended', function() {
+            // Rediriger automatiquement après 3 secondes
+            setTimeout(() => {
+                window.location.href = 'formulaire.html';
+            }, 3000);
+
+            // Optionnel : afficher le bouton si vous voulez donner une alternative
+            ctaButton.style.display = 'inline-block';
+        });
+    </script>
 </body>
 </html>
